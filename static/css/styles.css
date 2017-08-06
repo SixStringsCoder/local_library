@@ -1,0 +1,8 @@
+/* Created on Aug. 5, 2017 by Steve Hanlon as part of a tutorial at MDN */
+
+
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
