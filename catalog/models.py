@@ -33,6 +33,7 @@ class Language(models.Model):
         """
         return self.name
 
+
 class Book(models.Model):
     """
     Model representing a book (but not a specific copy of a book).
@@ -56,12 +57,12 @@ class Book(models.Model):
         """
         return self.title
 
-    def get_absoluteurl(self):
+    def get_absolute_url(self):
         """
         Returns the url to access a particular book instance.
         """
 
-        return reverse('book_detail', args=[str(self.id)])
+        return reverse('book-detail', args=[str(self.id)])
 
     def display_genre(self):
         """
@@ -122,3 +123,6 @@ class Author(models.Model):
         """
 
         return f'{self.last_name}, {self.first_name}'
+
+    class Meta:
+        ordering = ['last_name']
