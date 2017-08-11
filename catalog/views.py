@@ -26,7 +26,7 @@ class BookListView(generic.ListView):
     model = Book
     paginate_by = 5
     book_list = 'my_book_list'  # your own name for the list as a template variable
-    queryset = Book.objects.all()  # Get 5 books containing the title war
+    queryset = Book.objects.all()  # Get all books
     template_name = '../templates/catalog/book_list.html'  # Specify your own template name/location
 
 
@@ -43,7 +43,7 @@ class AuthorListView(generic.ListView):
     template_name = '../templates/catalog/author_list.html'
 
 
-class AuthorDetailView(generic.ListView):
-    model = Book
-    # queryset = Book.objects.filter(Author)
+class AuthorDetailView(generic.DetailView):
+    model = Author
+    # queryset = Book.objects.filter(author='king')
     template_name = '../templates/catalog/author_detail.html'
