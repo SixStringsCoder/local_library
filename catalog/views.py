@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Book, BookInstance, Author
 
 # Create your views here.
 
-
+@login_required
 def index(request):
     """
     View function for home page of site, index.html.
@@ -27,28 +29,36 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-class BookListView(generic.ListView):
+class BookListView(LoginRequiredMixin, generic.ListView):
     model = Book
     paginate_by = 5
     book_list = 'my_book_list'  # your own name for the list as a template variable
     queryset = Book.objects.all()  # Get all books
     template_name = '../templates/catalog/book_list.html'  # Specify your own template name/location
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
 
-class BookDetailView(generic.DetailView):
+class BookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Book
     template_name = '../templates/catalog/book_detail.html'  # Specify your own template name/location
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
 
-class AuthorListView(generic.ListView):
+class AuthorListView(LoginRequiredMixin, generic.ListView):
     model = Author
     paginate_by = 5
     author_list = 'my_author_list'
     queryset = Author.objects.all()
     template_name = '../templates/catalog/author_list.html'
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
 
-class AuthorDetailView(generic.DetailView):
+class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Author
     # queryset = Book.objects.filter(author='king')
     template_name = '../templates/catalog/author_detail.html'
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
